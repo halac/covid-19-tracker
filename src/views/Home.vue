@@ -4,7 +4,14 @@
 
     <DataBoxes :stats="status" /> 
 
-    <CountrySelect :countries="countries"/> 
+    <CountrySelect :countries="countries" @get-country="getCountryData" /> 
+
+    <button 
+          v-if="status.Country"
+          class="bg-green-700 text-white rounded p-3 mt-10 focus:outline-non hover:bg-green-600"
+          @click="clearCountryData">
+      Clear Country
+    </button>
   </main>
   <main class="flex flex-col align-center justify-center text-center" v-else>
     <div class="text-gray-500 text-3xl mt-10 mb-6">
@@ -43,14 +50,25 @@ export default {
       const res = await fetch('https://api.covid19api.com/summary')
       const data = await res.json()
       return data
-    }
+    },
+    getCountryData(country) {
+      this.status = country
+      this.title = country.Country
+    },
+    async clearCountryData() {
+      this.loading = true 
+      const data = await this.fechCovidData()
+      this.title = 'Global'
+      this.status = data.Global
+      this.loading = false
+    },
   },
   async created() {
     const data  = await this.fechCovidData()
 
     this.dataDate = data.Date
     this.status = data.Global
-    this.countries = data.countries 
+    this.countries = data.Countries 
     this.loading = false
   }
 }

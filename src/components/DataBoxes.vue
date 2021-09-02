@@ -18,7 +18,7 @@
         <!-- Box 2 -->
         <div class="shadow-md bg-blue-200 p-10 text-center rounded">
             <h3 class="text-3xl text-blue-900 font-bold mb-4">
-                Cases
+                Deaths
             </h3>
 
             <div class="text-2xl mb-4">
